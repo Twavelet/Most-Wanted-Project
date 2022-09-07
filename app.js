@@ -219,23 +219,6 @@ function findPersonDescendants(person, people){
 
 
 
-// function findPersonFamily(personToFindFamilyOf, people){
-//     let results;
-//     results = people.filter(function(potentialFamily){
-//         if (personToFindFamilyOf.parents.includes(potentialFamily.id) 
-//             && personToFindFamilyOf.currentSpouse.includes(potentialFamily.id)){
-//             return true;
-//         }
-//     })
-//     results = results.map(function(el){
-//         return el.firstName + " " + el.lastName
-//     })    
-//     console.log(results)
-//     return results
-// }
-
-
-
 function findPersonFamily(personToFindFamilyOf, people){
     let results;
     results = people.filter(function(potentialFamily){
@@ -255,5 +238,14 @@ function findPersonFamily(personToFindFamilyOf, people){
     potentialSpouse = potentialSpouse.map(function(elem){
         return elem.firstName + " " + elem.lastName
     })
-    return  newResults + ", " + potentialSpouse;
+
+    let potentialSiblings;
+    potentialSiblings = people.filter(function(sibling){
+        if(personToFindFamilyOf.parents === sibling.parents && personToFindFamilyOf.id !== sibling.id)
+        return true;
+    })
+    potentialSiblings = potentialSiblings.map(function(eleme){
+        return eleme.firstName + " " + eleme.lastName
+    })
+    return  newResults + ", " + potentialSpouse + ", " + potentialSiblings;
 }
