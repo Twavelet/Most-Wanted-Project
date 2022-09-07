@@ -203,6 +203,7 @@ function chars(input) {
 // Any additional functions can be written below this line 👇. Happy Coding! 😁
 
 
+<<<<<<< HEAD
 
 
 
@@ -220,3 +221,19 @@ function findPersonFamily(personToFindFamilyOf, people){
     console.log(results)
     return results
 }
+=======
+function findPersonDescendants(person, people){
+    let results;
+    results = people.filter(function(el){
+        if (person.id === el.parents[0] || person.id === el.parents[1])
+        return true;
+    })
+    let newResults;
+    newResults = results.map(function(element){
+        return element.firstName + " " + element.lastName
+    })
+    return newResults
+}
+
+
+>>>>>>> 19d8ed0c6cdded3076759a70552c033fdf7ea355
