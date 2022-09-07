@@ -59,7 +59,7 @@ function mainMenu(person, people) {
         return app(people);
     }
     let displayOption = prompt(
-        `Found ${person[0].firstName} ${person[0].lastName}. Do you want to know their 'info', 'family', or 'descendants'?\nType the option you want or type 'restart' or 'quit'.`
+        `Found ${person[0].firstName} ${person[0].lastName}. Do you want to know their 'info', 'family', or 'search', 'descendants'?\nType the option you want or type 'restart' or 'quit'.`
     );
     // Routes our application based on the user's input
     switch (displayOption) {
@@ -74,17 +74,7 @@ function mainMenu(person, people) {
             // HINT: Look for a people-collection stringifier utility function to help
             let personFamily = findPersonFamily(person[0], people);
             alert(personFamily);
-            break;
-
-            // function findPersonFamily(people){
-            //     alert(people.map(function (person) {
-            //         return '${person.parents} $person.currentSpouse}';
-            //     })
-            //     .join("/n")
-            //     );
-            // }
-            
-            
+            break;        
         case "descendants":
             //! TODO #3: Declare a findPersonDescendants function //////////////////////////////////////////
             // HINT: Review recursion lecture + demo for bonus user story
@@ -98,6 +88,10 @@ function mainMenu(person, people) {
         case "quit":
             // Stop application execution
             return;
+        case "search":
+            let testMatchFunction = searchByOneCriterion(person[0], people)
+            console.log(testMatchFunction)
+            break;
         default:
             // Prompt user again. Another instance of recursion
             return mainMenu(person, people);
@@ -248,4 +242,14 @@ function findPersonFamily(personToFindFamilyOf, people){
         return eleme.firstName + " " + eleme.lastName
     })
     return  newResults + ", " + potentialSpouse + ", " + potentialSiblings;
+}
+
+
+function searchByOneCriterion(people){
+    let foundCriterion = prompt("Enter a single trait of offender. Id, gender, height, weight.")
+    let foundMatch = people.filter(function(el){
+        if (foundCriterion === el.gender)
+        return true;
+    })
+    return foundMatch
 }
