@@ -75,6 +75,16 @@ function mainMenu(person, people) {
             let personFamily = findPersonFamily(person[0], people);
             alert(personFamily);
             break;
+
+            // function findPersonFamily(people){
+            //     alert(people.map(function (person) {
+            //         return '${person.parents} $person.currentSpouse}';
+            //     })
+            //     .join("/n")
+            //     );
+            // }
+            
+            
         case "descendants":
             //! TODO #3: Declare a findPersonDescendants function //////////////////////////////////////////
             // HINT: Review recursion lecture + demo for bonus user story
@@ -94,6 +104,20 @@ function mainMenu(person, people) {
     }
 }
 // End of mainMenu()
+function findPersonFamily(personToFindFamilyOf, people){
+    let results;
+    results = people.filter(function(potentialFamily){
+        if (personToFindFamilyOf.parents.includes(potentialFamily.id) 
+            && personToFindFamilyOf.currentSpouse.includes(potentialFamily.id)){
+            return true;
+        }
+    })
+    results = results.map(function(el){
+        return el.firstName + " " + el.lastName
+    })    
+    console.log(results)
+    return results
+}
 
 /**
  * This function is used when searching the people collection by
@@ -191,3 +215,4 @@ function chars(input) {
 
 //////////////////////////////////////////* End Of Starter Code *//////////////////////////////////////////
 // Any additional functions can be written below this line 👇. Happy Coding! 😁
+
