@@ -201,11 +201,11 @@ function findPersonDescendants(person, people){
         if (person.id === el.parents[0] || person.id === el.parents[1])
         return true;
     })
-    let newResults;
-    newResults = results.map(function(element){
+    let personDescendants;
+    personDescendants = results.map(function(element){
         return element.firstName + " " + element.lastName
     })
-    return newResults
+    return personDescendants
 }
 
 
@@ -218,7 +218,7 @@ function findPersonFamily(personToFindFamilyOf, people){
     })
     let newResults        
     newResults = results.map(function(el){
-        return el.firstName + " " + el.lastName
+        return `${el.firstName} ${el.lastName}\n`
     }) 
 
     let potentialSpouse;
@@ -232,13 +232,16 @@ function findPersonFamily(personToFindFamilyOf, people){
 
     let potentialSiblings;
     potentialSiblings = people.filter(function(sibling){
-        if(personToFindFamilyOf.parents === sibling.parents && personToFindFamilyOf.id !== sibling.id)
-        return true;
-    })
+        if(personToFindFamilyOf.parents[0] === sibling.parents[0] || personToFindFamilyOf.parents[1] === sibling.parents[1] && personToFindFamilyOf.id !== sibling.id)
+            return true;
     potentialSiblings = potentialSiblings.map(function(eleme){
-        return eleme.firstName + " " + eleme.lastName
+        return `${eleme.firstName} ${eleme.lastName}\n`
     })
-    return  newResults + ", " + potentialSpouse + ", " + potentialSiblings;
+
+    let personFamily = `Family name: ${newResults}\n`;
+    personFamily += `Spouse: ${potentialSpouse}\n`;
+    personFamily += `Sibling: ${potentialSiblings}\n`;
+    return personFamily
 }
 
 
