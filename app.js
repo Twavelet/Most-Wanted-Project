@@ -246,15 +246,6 @@ function findPersonFamily(personToFindFamilyOf, people){
 
 
 function searchByOneCriterion(people){
-    let foundCriterion = prompt("Enter a single trait of offender. Id, gender, height, weight.")
-    let foundMatch = people.filter(function(el){
-        if (foundCriterion === el.gender)
-        return true;
-    })
-    return foundMatch
-}
-
-function searchByOneCriterion(people){
     let userInput;
     userInput = prompt("What type of attribute would you like to look up?")
     let userAttribute = prompt(`What is the ${userInput} you want to look up?`)
@@ -276,4 +267,3 @@ function searchByOneCriterion(people){
     return printSearch
 
 }
-
