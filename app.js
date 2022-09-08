@@ -31,7 +31,8 @@ function app(people) {
         case "no":
             //! TODO #4: Declare a searchByTraits (multiple traits) function //////////////////////////////////////////
                 //! TODO #4a: Provide option to search for single or multiple //////////////////////////////////////////
-            searchResults = searchByTraits(people);
+            searchResults = searchByOneCriterion(people)
+            console.log(searchResults)
             break;
         default:
             // Re-initializes the app() if neither case was hit above. This is an instance of recursion.
@@ -88,10 +89,6 @@ function mainMenu(person, people) {
         case "quit":
             // Stop application execution
             return;
-        case "search":
-            let testMatchFunction = searchByOneCriterion(person[0], people)
-            console.log(testMatchFunction)
-            break;
         default:
             // Prompt user again. Another instance of recursion
             return mainMenu(person, people);
@@ -253,3 +250,19 @@ function searchByOneCriterion(people){
     })
     return foundMatch
 }
+
+function searchByOneCriterion(people){
+    let userInput;
+    userInput = prompt("What type of attribute would you like to look up?")
+    let userAttribute = prompt(`What is the ${userInput} you want to look up?`)
+    let userSearch = people.filter(function(el){
+        if (el[userInput] === userAttribute)
+        return true;
+    })
+    let printSearch = userSearch.map(function(el){
+        return el
+    })    
+    return printSearch
+
+}
+
