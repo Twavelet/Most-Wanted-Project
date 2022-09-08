@@ -32,7 +32,7 @@ function app(people) {
             //! TODO #4: Declare a searchByTraits (multiple traits) function //////////////////////////////////////////
                 //! TODO #4a: Provide option to search for single or multiple //////////////////////////////////////////
             searchResults = searchByOneCriterion(people)
-            console.log(searchResults)
+            alert(searchResults)
             break;
         default:
             // Re-initializes the app() if neither case was hit above. This is an instance of recursion.
@@ -60,7 +60,7 @@ function mainMenu(person, people) {
         return app(people);
     }
     let displayOption = prompt(
-        `Found ${person[0].firstName} ${person[0].lastName}. Do you want to know their 'info', 'family', or 'search', 'descendants'?\nType the option you want or type 'restart' or 'quit'.`
+        `Found ${person[0].firstName} ${person[0].lastName}. Do you want to know their 'info', 'family', or , 'descendants'?\nType the option you want or type 'restart' or 'quit'.`
     );
     // Routes our application based on the user's input
     switch (displayOption) {
@@ -256,11 +256,19 @@ function searchByOneCriterion(people){
     userInput = prompt("What type of attribute would you like to look up?")
     let userAttribute = prompt(`What is the ${userInput} you want to look up?`)
     let userSearch = people.filter(function(el){
-        if (el[userInput] === userAttribute)
+        if (el[userInput] == userAttribute)
         return true;
     })
     let printSearch = userSearch.map(function(el){
-        return el
+        let info = `ID: ${el.id}\n`
+        info += `Full Name: ${el.firstName} ${el.lastName}\n`
+        info += `Gender: ${el.gender}\n`
+        info += `Date of Birth: ${el.dob}\n`
+        info += `Height: ${el.height}\n`
+        info += `Weight: ${el.weight}\n`
+        info += `Eye Color: ${el.eyeColor}\n`
+        info += `Occupation: ${el.occupation}\n\n`
+        return info
     })    
     return printSearch
 
