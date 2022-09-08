@@ -234,6 +234,7 @@ function findPersonFamily(personToFindFamilyOf, people){
     potentialSiblings = people.filter(function(sibling){
         if(personToFindFamilyOf.parents[0] === sibling.parents[0] || personToFindFamilyOf.parents[1] === sibling.parents[1] && personToFindFamilyOf.id !== sibling.id)
             return true;
+    })
     potentialSiblings = potentialSiblings.map(function(eleme){
         return `${eleme.firstName} ${eleme.lastName}\n`
     })
@@ -265,5 +266,4 @@ function searchByOneCriterion(people){
         return info
     })    
     return printSearch
-
 }
