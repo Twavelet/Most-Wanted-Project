@@ -265,14 +265,14 @@ function searchByOneCriterion(people){
         info += `Occupation: ${el.occupation}\n\n`
         return info
     })    
-    alert(printSearch.join("\n"))
+    
     let refineSearch = prompt("Would you like to add another attribute to search by? yes/no")
     switch(refineSearch){
         case "yes":
             let newAttribute = searchByOneCriterion(userSearch)
             return newAttribute;
         case "no":
-            app(people);
+            alert(printSearch.join("\n"));
             break
     }
     return printSearch
