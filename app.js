@@ -200,6 +200,10 @@ function findPersonDescendants(person, people){
     results = people.filter(function(el){
         if (person.id === el.parents[0] || person.id === el.parents[1])
         return true;
+        else {
+            alert("No descendants found.")
+            return app(people)
+        }
     })
     let personDescendants;
     personDescendants = results.map(function(element){
@@ -212,44 +216,59 @@ function findPersonDescendants(person, people){
 
 function findPersonFamily(personToFindFamilyOf, people){
     let results;
-    results = people.filter(function(potentialFamily){
-        if (personToFindFamilyOf.parents.includes(potentialFamily.id))
+    results = people.filter(function(potentialParent){
+        if (personToFindFamilyOf.parents.includes(potentialParent.id))
             return true;
     })
-    let newResults        
-    newResults = results.map(function(el){
+    let newResults;        
+        if (results.length > 0){
+        newResults = results.map(function(el){
         return `${el.firstName} ${el.lastName}\n`
-    }) 
+        })
+    }
+        else
+            newResults = `No results.` 
 
     let potentialSpouse;
     potentialSpouse = people.filter(function(ele){
         if (personToFindFamilyOf.currentSpouse === ele.id)
             return true;
     })
-    potentialSpouse = potentialSpouse.map(function(elem){
-        return elem.firstName + " " + elem.lastName
-    })
+    let potentialSpouseResult
+        if (potentialSpouse.length > 0){
+            potentialSpouseResult = potentialSpouse.map(function(elem){
+            return elem.firstName + " " + elem.lastName
+            })
+        }
+        else   
+          potentialSpouseResult = `No results.`
+    
 
     let potentialSiblings;
     potentialSiblings = people.filter(function(sibling){
-        if(personToFindFamilyOf.parents[0] === sibling.parents[0] || personToFindFamilyOf.parents[1] === sibling.parents[1] && personToFindFamilyOf.id !== sibling.id)
+        if((personToFindFamilyOf.parents[0] === sibling.parents[0] || personToFindFamilyOf.parents[1] === sibling.parents[1]) && personToFindFamilyOf.id !== sibling.id)
             return true;
     })
-    potentialSiblings = potentialSiblings.map(function(eleme){
-        return `${eleme.firstName} ${eleme.lastName}\n`
-    })
+    let potentialSiblingsResult
+        if (potentialSiblings.length > 0){ 
+        potentialSiblingsResult = potentialSiblings.map(function(eleme){
+        return `${eleme.firstName} ${eleme.lastName}`
+        })
+    }
+    else
+        potentialSiblingsResult = `No results.`
 
-    let personFamily = `Family name: ${newResults}\n`;
-    personFamily += `Spouse: ${potentialSpouse}\n`;
-    personFamily += `Sibling: ${potentialSiblings}\n`;
+    let personFamily = `Parent(s):\n${newResults.join(`\n`)}\n`;
+    personFamily += `Spouse:\n${potentialSpouseResult.join(`\n`)}\n\n`;
+    personFamily += `Sibling(s):\n${potentialSiblingsResult.join('\n')}\n`;
     return personFamily
 }
 
 
 function searchByOneCriterion(people){
     let userInput;
-    userInput = prompt("What type of attribute would you like to look up?")
-    let userAttribute = prompt(`What is the ${userInput} you want to look up?`)
+    userInput = promptFor("What type of attribute would you like to look up?", validityChecker)
+    let userAttribute = promptFor(`What is the ${userInput} you want to look up?`, testValid(people))
     let userSearch = people.filter(function(el){
         if (el[userInput] == userAttribute)
         return true;
@@ -279,3 +298,12 @@ function searchByOneCriterion(people){
 }
 
 
+function validityChecker(input) {
+    let attributes = ["id", "firstName", "lastName", "gender", "dob", "height", "weight", "eyeColor", "occupation", "parents", "currentSpouse"]
+    return attributes.includes(input)
+}
+
+function testValid(input, people){
+    let attribute = people.includes(input)
+    return attribute
+}
