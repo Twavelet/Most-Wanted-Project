@@ -266,13 +266,16 @@ function findPersonFamily(personToFindFamilyOf, people){
 
 
 function searchByOneCriterion(people){
-    let userInput;
-    userInput = promptFor("What type of attribute would you like to look up?", validityChecker)
-    let userAttribute = promptFor(`What is the ${userInput} you want to look up?`, testValid(people))
+    let userInput = promptFor("What type of attribute would you like to look up?", validityChecker)
+    let userAttribute = prompt(`What is the ${userInput} you want to look up?`)
+    // let userAttributeTrue = testValid(people, userAttribute, userInput)
     let userSearch = people.filter(function(el){
         if (el[userInput] == userAttribute)
-        return true;
+            return true;
+            //self validating by checkinng for equality in the above if statement logic
     })
+
+    if (userSearch.length > 0){
     let printSearch = userSearch.map(function(el){
         let info = `ID: ${el.id}\n`
         info += `Full Name: ${el.firstName} ${el.lastName}\n`
@@ -295,7 +298,15 @@ function searchByOneCriterion(people){
             break
     }
     return printSearch
-}
+    }
+
+    else{   
+        userSearch == 0
+            alert("No results found. Starting another search.")
+            searchByOneCriterion(people)
+    }
+}// main ending bracket
+   
 
 
 function validityChecker(input) {
@@ -303,7 +314,10 @@ function validityChecker(input) {
     return attributes.includes(input)
 }
 
-function testValid(input, people){
-    let attribute = people.includes(input)
-    return attribute
-}
+// function testValid(people, input, key){
+//     let attribute = people.filter(function(el){
+//         if (el[key] == input)
+//             return true;
+//     })
+//     return attribute
+// }
